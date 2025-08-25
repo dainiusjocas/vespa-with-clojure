@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright Vespa.ai. Licensed under the terms of the Apache 2.0 license. See LICENSE in the project root. -->
+<services version="1.0">
+
+    <config name="search.config.qr-start">
+        <jdisc>
+            <classpath_extra>/opt/vespa/lib/clojure/*</classpath_extra>
+            <export_packages>clojure,clojure.lang,clojure.java.api</export_packages>
+        </jdisc>
+    </config>
+
+    <container id="default" version="1.0">
+        <processing>
+            <chain id="default">
+                <processor id="ai.vespa.examples.ExampleProcessor" bundle="generic-request-processing">
+                    <config name="ai.vespa.examples.example-processor">
+                        <message>Hello, services!</message>
+                    </config>
+                </processor>
+            </chain>
+        </processing>
+        <nodes>
+            <node hostalias="node1"/>
+        </nodes>
+    </container>
+
+</services>
