@@ -5,7 +5,7 @@ An attempt to run some Clojure code in Vespa container node
 
 A modified code from [here](https://github.com/vespa-engine/sample-apps/tree/master/examples/generic-request-processing).
 
-Prepare special Vespa Docker with Clojure libs in the classpath:
+Prepare a special Vespa Docker with Clojure libs in the classpath:
 ```aiignore
 docker build -f Dockerfile -t vespa-clojure-1 .
 docker run --rm --name vespa --hostname vespa-container \
@@ -43,6 +43,27 @@ The response body should look like this:
 
 So, it runs. I'm not sure if this is the best approach but it works.
 
+## The Clojure code
+
+[Here](src/main/clojure/ai/vespa/examples/MyClojure.clj)
+
+This sample code looks like this:
+```clojure
+(ns ai.vespa.examples.MyClojure
+  (:gen-class
+    :init init
+    :methods [[foo [] String]
+              ^{:static true} [data [] String]]
+    :prefix "-"))
+
+(defn -init []
+  (println "Clojure defined class Constructor"))
+
+(defn -foo [this] "Hello from Clojure")
+
+(defn -data []
+  "Hello from Clojure static method")
+```
 
 ## Experimentation log
 
